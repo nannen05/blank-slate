@@ -1,0 +1,41 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+
+<div class="product" data-section-id="{{ section.id }}" data-section-type="product">
+  <section class="product__wrapper">
+      <div class="product__column">
+          {% render 'product-gallery'
+            featured_image: featured_image %}
+      </div>
+    <div class="product__column">
+        <div class="product__content">
+          {% render 'product-header' %}
+          {% render 'product-form' %}
+          {% render 'product-details' %}
+        </div>
+    </div>
+      {% comment %} <h3 data-add-to-cart data-variant-id="35043546923170" data-variant-quantity="1">Add To Cart</h3> {% endcomment %}
+  </section>
+
+  {% render 'product-upsells' %}
+  
+  {% comment %} 
+    {% render 'product-comparsions' %}
+    {% render 'product-reviews' %} 
+  {% endcomment %}
+
+</div>
+
+{% schema %}
+  {
+    "name": "Product pages",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show social sharing buttons",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

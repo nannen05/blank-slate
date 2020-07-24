@@ -1,0 +1,61 @@
+<script data-shop-api>
+
+  window.ehs = {
+    product: {
+      handle: {{ product.handle | json }},
+      product: {{ product | json }},
+      productOptionsWithValues: {{ product.options_with_values | json }},
+      productCollection: {{ product.collection | json }},
+      productCollections: {{ product.collections | json }},
+      selectedOrFirstAvailableVariant: {{ product.selected_or_first_available_variant | json }},
+      subscriptionTooltipText: {{ settings.subscription_tooltip_text | json }},
+      pointsTextFirst: {{ settings.points_text_first | json }},
+      pointsTextLast: {{ settings.points_text_last | json }}
+    },
+    collection: {
+      handle: {{ collection.handle | json }},
+    },
+    customer: {
+      loggedIn: {% if customer %}true{% else %}false{% endif %},
+      id: {{ customer.id | json }},
+      email: {{ customer.email | default: '' | json }},
+      order_count: {{ customer.orders_count | json }},
+      default_address: {
+        {% if customer.default_address %}
+          first_name: {{ customer.default_address.first_name | json }},
+          last_name: {{ customer.default_address.last_name | json }},
+          address1: {{ customer.default_address.address1 | json }},
+          address2: {{ customer.default_address.address2 | json }},
+          city: {{ customer.default_address.city | json }},
+          company: {{ customer.default_address.company | json }},
+          country: {{ customer.default_address.country | json }},
+          province: {{ customer.default_address.province | json }},
+          phone: {{ customer.default_address.phone | json }},
+          zip: {{ customer.default_address.zip | json }}
+        {% endif %}
+      }
+    },
+    template: {
+      path: {{ template | json }},
+      name: {{ template.name | json }},
+      alternate: {{ template.suffix | json }},
+    },
+    theme: {
+      currentPage: {{ current_page }},
+      name: {{ theme.name | json }},
+      id: {{ theme.id }},
+    },
+    shop: {},
+    data: {},
+    state: {
+      cart: {{ cart | json }},
+      product: {},
+      slider: {},
+      modal: {},
+      'line-item': {},
+    },
+    cartConfig: {},
+    js: {}
+  };
+</script>
+

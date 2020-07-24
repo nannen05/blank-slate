@@ -1,0 +1,52 @@
+{% if product.metafields.custom_fields["product_upsells"] != blank %}
+    <section class="product__upsells">
+        <div class="product__upsells--header">
+            Product Upsells
+        </div>
+        
+        <div class="product__upsells--wrapper">
+            {% assign separator = "|###|" %}
+            {% assign upsell_product_array = product.metafields.custom_fields["upsell_product"] | split: separator %}
+            {% assign fc_keys = product.metafields.custom_fields["product_upsells"] | split: "," %}
+            {% for i in fc_keys %}
+                {% assign index = i | plus: 0 %}
+                    {% assign upsell_product = all_products[upsell_product_array[index]] %}
+                        <script data-product-data type="application/json">
+                            {{ upsell_product | json }}
+                        </script>
+                        <div class="product__upsells--item" data-product-handle="{{ upsell_product.handle }}" data-product-tile>
+                            <div class="product__upsells--image">
+                                  {%- assign img_url = upsell_product.selected_or_first_available_variant.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                                  <img  src="{{ upsell_product.selected_or_first_available_variant.image | img_url: '300x' }}"
+                                        data-src="{{ img_url }}"
+                                        tabindex="-1"
+                                        alt="{{ image.alt | escape }}"
+                                    >
+                            </div>
+                            <div class="product__upsells--atc">
+                                <button>Add To Cart</button>
+                            </div>
+                            <div class="product__upsells--options">
+                                <div class="product__upsells--color">
+                                    {{ upsell_product.selected_or_first_available_variant.option2 }}
+                                </div>
+                                <div class="product__upsells--swatches">
+                                    {% for product_option in upsell_product.options_with_values %}
+                                        {% if product_option.name == 'Color' %}
+                                            {% for value in product_option.values %}
+                                                <div class="swatch swatch--{{ value }}">
+
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+                            <div class="product__upsells--title">{{ upsell_product.title }} <span>{{ upsell_product.selected_or_first_available_variant.price | money }}</span></div>
+                        </div>
+                    {% assign upsell_product = nil %}
+            {% endfor %}
+        </div>
+    </section>
+{% endif %}

@@ -1,0 +1,17 @@
+.hero-banner {
+  background-repeat: no-repeat;
+}
+
+.hero-banner--article {
+  min-height: 278px;
+  background-position: center;
+  background-size: cover;
+}
+
+.hero__inner {
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+  padding: 55px 0;
+  z-index: 2;
+}
